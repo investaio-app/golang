@@ -1,0 +1,25 @@
+FROM python:3.10-slim
+
+WORKDIR /app
+
+# Install required build tools and dev libraries
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    gcc \
+    libsasl2-dev \
+    libldap2-dev \
+    libssl-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy requirements and package wheels
+COPY backend/requirements.txt .
+COPY packages/ /packages/
+
+# Install dependencies from PyPI with local fallback
+RUN pip install --upgrade pip
+RUN pip install --find-links=/packages -r requirements.txt
+
+# Optionally copy the application in a later Dockerfile stage
+
+
+#RUN pip install --no-index --find-links=/packages -r requirements.txt
