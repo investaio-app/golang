@@ -1,0 +1,9 @@
+https://chatgpt.com/share/6801ec69-3c18-8010-81f9-d6247dfab379
+
+oc new-build --name=axel --strategy=docker --binary  --docker-image=registry.access.redhat.com/ubi8/ubi
+oc new-build --name=axel --strategy=docker --binary  --image=registry.access.redhat.com/ubi8/ubi
+oc start-build axel --from-file=axel.tar --follow
+
+
+
+oc get is -n investaio-app-dev
